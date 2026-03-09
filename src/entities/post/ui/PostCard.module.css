@@ -1,0 +1,25 @@
+.container {
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.title {
+    color: #2c3e50
+}
+
+.content {
+    color: #34495e;
+    line-height: 1.6;
+}
+
+.author {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #ecf0f1;
+    color: #7f8c8d;
+
+}
