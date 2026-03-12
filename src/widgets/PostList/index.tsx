@@ -32,20 +32,22 @@ const MOCK_POSTS: Post[] = [
     author: 'Наталья Иброгимовна',
     date: '09-03-2025'
   },
+  
 ];
 
 const PostList: React.FC = () => {
     return (
         <div className={styles.container}>
             {MOCK_POSTS.map((post) => (
+              <React.Fragment key={post.id}>
                 <PostCard 
-                key={post.id}
                 id={post.id}
                 title={post.title}
                 content={post.content}
                 author={post.author}
                 date={post.date}
                 />
+                </React.Fragment>
             ))}
         </div>
 

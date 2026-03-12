@@ -2,9 +2,11 @@ import React from "react";
 import styles from './Footer.module.css'
 
 const Footer: React.FC = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className={styles.footer} >
-            <p>Aston React интенсив 2025</p>
+            <p className={styles.text}>{currentYear} Aston React интенсив.</p>
         </footer>
     )
 }
