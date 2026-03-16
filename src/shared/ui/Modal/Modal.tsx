@@ -32,9 +32,11 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, title, children}) => {
         document.addEventListener('keydown', handleEscape);
 
         return () => {
-            document.addEventListener('keydown', handleEscape);
+            document.removeEventListener('keydown', handleEscape);
         }
     }, [isOpen, onClose]);
+
+    
 
     if (!isOpen) return null;
     const modalRoot = document.getElementById("modal");
