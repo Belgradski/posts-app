@@ -1,0 +1,20 @@
+.mainLayout {
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+    
+}
+
+:global(body[data-theme="dark"]) .main {
+    background-color: #222;
+}
+
+:global(body[data-theme="light"]) .main {
+    background-color: #f5f5f5;
+}
