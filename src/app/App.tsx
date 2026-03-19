@@ -7,11 +7,10 @@ import './App.css'
 function App() {
   const isLoading = false;
   const error = null;
-
   return (
     <ThemeProvider>
     <MainLayout>
-      <PostList isLoading={isLoading} error={error}/>
+      <PostList isLoading={isLoading} error={error} />
     </MainLayout>
     </ThemeProvider>
   )

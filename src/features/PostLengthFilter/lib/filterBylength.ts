@@ -1,8 +1,8 @@
-import { type Post } from "../../../entities/post/types";
+import { type PostApi } from "../../../shared/types"; 
 
 export type FilterType = 'all' | 'short' | 'medium' | 'long';
 
-export const filterByLength = (posts: Post[], filterType: FilterType) => {
+export const filterByLength = (posts: PostApi[], filterType: FilterType) => {
     switch (filterType) {
         case 'short':
             return posts.filter(post => post.title.length < 30);

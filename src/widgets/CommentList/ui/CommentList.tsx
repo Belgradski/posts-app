@@ -1,49 +1,75 @@
-import React, {memo, useState, useCallback} from "react";
-import { MOCK_COMMENTS } from "../../../entities/api/mocks";
-import { type Comment } from "../../../entities/comment/types";
-import styles from "./CommentList.module.css"
+import React, { memo, useState, useCallback, useEffect } from "react";
+import { type CommentApi } from "../../../shared/types";
+import styles from "./CommentList.module.css";
 import Button from "../../../shared/ui/Button/Button";
 
 interface CommentListProps {
-    postId: number;
+  postId: number;
 }
 
 const CommentList: React.FC<CommentListProps> = memo(({ postId }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [comments] = useState<Comment[]>(MOCK_COMMENTS[postId] || []);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [comments, setComments] = useState<CommentApi[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-    const toggleExpand = useCallback(() => {
-        setIsExpanded(prev => !prev)
-    }, [])
+  useEffect(() => {
+    if (!isExpanded) return;
+    setIsLoading(true);
+    setError(null);
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+        );
+        if (!response.ok) {
+          throw new Error(`Ошибка: ${response.status}`);
+        }
+        const data: CommentApi[] = await response.json();
+        setComments(data);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error("Неизвестная ошибка"));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchComments();
+  }, [isExpanded, postId]);
 
-    if (comments.length === 0) {
-        return <p className={styles.commentsEmpty}>Нет комментариев</p>;
-    }
-    return (
-        <div>
-     <div className={styles.container}>
-        <span className={styles.title}>Комментарии: ({comments.length})</span>
-        <Button variant="secondary" className={styles.button} onClick={toggleExpand}>
-            {isExpanded ? 'Свернуть' : 'Развернуть'}
+  const toggleExpand = useCallback(() => {
+    setIsExpanded((prev) => !prev);
+  }, []);
+
+
+  return (
+    <div>
+      <div className={styles.container}>
+        <span className={styles.title}>Комментарии</span>
+        <Button
+          variant="secondary"
+          className={styles.button}
+          onClick={toggleExpand}
+        >
+          {isExpanded ? "Свернуть" : "Развернуть"}
         </Button>
-        </div>   
-
-        {isExpanded && (
-            <div>
-                {comments.map((commnent) => (
-                    <div key={commnent.id} className={styles.commentBlock}>
-                        <p>{commnent.text}</p>
-                        <div className={styles.meta}>
-                            <span>{commnent.author}</span>
-                            <span>{commnent.date}</span>
-                        </div>
-
-                    </div>
-                ))}
+      </div>
+      {isLoading && <p>Загрузка коментариев...</p>}
+      {error && <p>Ошибка загрузки:{error.message}</p>}
+      {!isLoading && !error && isExpanded && (
+        <div>
+          {comments.map((comment) => (
+            <div key={comment.id} className={styles.commentBlock}>
+              <p>{comment.body}</p>
+              <div className={styles.meta}>
+                <span>Автор: {comment.name}</span>
+                <span>Email: {comment.email}</span>
+              </div>
             </div>
-        )}
-     </div>
-    )
-})
+          ))}
+        </div>
+      )}
+    </div>
+  );
+});
 
 export default CommentList;

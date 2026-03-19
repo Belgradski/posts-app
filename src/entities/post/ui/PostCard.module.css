@@ -17,13 +17,7 @@
     line-height: 1.6;
 }
 
-.meta {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 15px;
-    border-top: 1px solid #ecf0f1;
-    color: #7f8c8d;
-}
+
 
 :global(body[data-theme="dark"]) .container {
     background-color: #333;
@@ -40,6 +34,3 @@
     color: #c9c9c9;
 }
 
-:global(body[data-theme="dark"]) .meta {
-    color: #9d9d9d
-}

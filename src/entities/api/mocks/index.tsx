@@ -41,3 +41,4 @@ export const MOCK_POSTS: Post[] = [
       { id: 8, text: 'Перехожу на Vite после этой статьи', author: 'Алексей', date: '2024-03-12' },
     ],
   };
+
