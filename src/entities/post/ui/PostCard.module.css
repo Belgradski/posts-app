@@ -2,7 +2,6 @@
     border: 1px solid #e1e1e1;
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: background-color 0.5s ease;
@@ -18,7 +17,7 @@
     line-height: 1.6;
 }
 
-.author {
+.meta {
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
@@ -41,6 +40,6 @@
     color: #c9c9c9;
 }
 
-:global(body[data-theme="dark"]) .author {
+:global(body[data-theme="dark"]) .meta {
     color: #9d9d9d
 }

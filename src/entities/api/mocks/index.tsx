@@ -1,4 +1,5 @@
 import { type Post } from "../../post/types";
+import { type Comment } from "../../comment/types";
 
 export const MOCK_POSTS: Post[] = [
     {
@@ -23,3 +24,20 @@ export const MOCK_POSTS: Post[] = [
       date: '09-03-2025'
     },
   ];
+
+  export const MOCK_COMMENTS: Record<number, Comment[]> = {
+    1: [
+      { id: 1, text: 'Отличная статья! Очень помогла.Теперь я буду умнее, но это не точно.', author: 'Анна Вальшнеповна', date: '2024-03-15' },
+      { id: 2, text: 'Спасибо за полезную информацию', author: 'Петр Кефиров', date: '2024-03-15' },
+      { id: 3, text: 'Жду продолжения!', author: 'Мария Шпантакль', date: '2024-03-14' },
+    ],
+    2: [
+      { id: 4, text: 'Ну круто, тперь я пошел делать ракету ', author: 'Иван', date: '2024-03-14' },
+      { id: 5, text: 'Спасибо Вам, мы такие тупые ,что не готовы осознать', author: 'Елена', date: '2024-03-13' },
+    ],
+    3: [
+      { id: 6, text: 'Vite намного быстрее CRA', author: 'Дмитрий', date: '2024-03-13' },
+      { id: 7, text: 'Отличное сравнение!', author: 'Ольга', date: '2024-03-12' },
+      { id: 8, text: 'Перехожу на Vite после этой статьи', author: 'Алексей', date: '2024-03-12' },
+    ],
+  };

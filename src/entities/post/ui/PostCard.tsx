@@ -10,11 +10,12 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ title, content, author, date}) => {
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>{title}</h2>
             <p className={styles.content}>{content}</p>
-            <div className={styles.author}>
+            <div className={styles.meta}>
                 <span>{author}</span>
                 <span>{date}</span>
             </div>
