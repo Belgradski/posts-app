@@ -65,7 +65,7 @@ const PostList: React.FC = () => {
       ) : (
         filteredPosts.map((post) => (
           <React.Fragment key={post.id}>
-            <div style={{ border: "1px solid grey", borderRadius: "10px" }}>
+            <div className={styles.list}>
               <PostCard id={post.id} title={post.title} content={post.body} />
 
               <CommentList postId={post.id} />

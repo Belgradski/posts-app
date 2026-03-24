@@ -53,7 +53,7 @@ const CommentList: React.FC<CommentListProps> = memo(({ postId }) => {
           {isExpanded ? "Свернуть" : "Развернуть"}
         </Button>
       </div>
-      {isLoading && <p>Загрузка коментариев...</p>}
+      {isLoading && <p>Загрузка комментариев...</p>}
       {error && <p>Ошибка загрузки:{error.message}</p>}
       {!isLoading && !error && isExpanded && (
         <div>
