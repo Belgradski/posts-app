@@ -1,0 +1,128 @@
+.loader {
+    text-align: center;
+    padding: 40px;
+    color: #3498db;
+}
+
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #e74c3c;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.backLink {
+    display: inline-block;
+    color: #3498db;
+    text-decoration: none;
+    padding-bottom: 20px;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+.backLink:hover {
+    text-decoration: underline;
+}
+
+.postDetail {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.author {
+    color: #7f8c8d;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+
+.content {
+    line-height: 1.8;
+    color: #34495e;
+    padding-bottom: 30px;
+}
+
+.title {
+    color: #34495e;
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.albumGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.albumCard {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none;
+    color:inherit;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.albumCard:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) ;
+}
+
+.photoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.photoCard {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    
+}
+
+.todoList {
+    padding-top: 20px;
+}
+
+.todoItem {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #8f8f8f;
+}
+
+.todoItem.completed span {
+    color: #95a5a6;
+}
+
+
+:global(body[data-theme="dark"]) .postDetail,
+:global(body[data-theme="dark"]) .albumCard,
+:global(body[data-theme="dark"]) .photoCard {
+    background-color: #2d2d2d;
+}
+
+:global(body[data-theme="dark"]) .author {
+    color: #bdc3c7;
+  }
+  
+  :global(body[data-theme="dark"]) .content {
+    color: #ecf0f1;
+  }
+  :global(body[data-theme="dark"]) .title {
+    color: #ecf0f1;
+  }
+
+  :global(body[data-theme="dark"]) .todoItem {
+    border-bottom-color: #444;
+  }
