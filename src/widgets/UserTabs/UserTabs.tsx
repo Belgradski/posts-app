@@ -1,43 +1,38 @@
-import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './UserTabs.module.css'
+import { useAppDispatch, useAppSelector } from '../../app/providers/store';
+import { useGetUsersQuery } from '../../entities/user/api/usersApi';
+import { addUsers, selectAllUsers, setSelectedUserId } from '../../entities/user/model/slice/userSlice';
 
 interface UserTabsProps {
     userId?:number;
 }
 
-interface User {
-    id: number;
-    name: string;
-}
 
-const UserTabs: React.FC<UserTabsProps> = ({userId}) => {
-    const [users, setUsers] = useState<User[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+const UserTabs: React.FC<UserTabsProps> = ({userId }) => {
+    const dispatch = useAppDispatch();
+
+    const { data: usersFromApi, isLoading} = useGetUsersQuery();
+
+    const users = useAppSelector(selectAllUsers);
+    useEffect(() => {
+     if (usersFromApi) {
+        dispatch(addUsers(usersFromApi))
+     }
+    }, [usersFromApi, dispatch]);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            setIsLoading(true)
-            try {
-                const response = await fetch('https://jsonplaceholder.typicode.com/users');
-                const data = await response.json();
-                setUsers(data);
-            }
-            catch(error) {
-                console.log('Ошибка загрузки пользователей', error)
-            }
-            finally {
-                setIsLoading(false);
-            }
+        if (userId !== undefined) {
+            dispatch(setSelectedUserId(userId))
         }
-        fetchUsers();
-    }, []);
+    }, [userId, dispatch])
 
     if (isLoading) return <div className={styles.loader}>Загрузка пользователей...</div>;
 
     return (
         <div className={styles.tabsContainer}>
-            <h3 className={styles.title}>Пользователи</h3>
+            <h3 className={styles.title}>Пользователи:</h3>
             <div className={styles.userList}>
                 {users.map((user) => (
                     <div key={user.id} className={styles.userGroup}>

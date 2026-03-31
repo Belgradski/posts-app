@@ -2,13 +2,14 @@ import { type FilterType, getFilterLabel } from "../lib/filterBylength";
 import Button from "../../../shared/ui/Button/Button";
 import {memo, useCallback } from "react";
 import styles from "./PostLengthFilter.module.css"
+import { ALL_FILTERS } from "../lib/filterBylength";
 
 interface PostLengthFilterProps {
   currentFilter: FilterType;
   onFilterChange: (filter: FilterType) => void;
 }
 
-const filterOption: FilterType[] = ["all", "short", "medium", "long"];
+const filterOption: FilterType[] = ALL_FILTERS;
 
 const PostLengthFilter: React.FC<PostLengthFilterProps> = memo(({
   currentFilter,
