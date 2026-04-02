@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect} from "react";
 import PostCard from "../entities/post/ui/PostCard";
 import PostLengthFilter from "../features/PostLengthFilter/ui/PostLengthFilter";
 import {
@@ -17,6 +17,9 @@ import {
 } from "../entities/post/model/slice/postSlice";
 import { Link } from "react-router-dom";
 import CommentList from "../widgets/CommentList/ui/CommentList";
+import { ItemList } from "../shared/ui/ItemList/ItemList";
+import type { Post } from "../shared/types";
+
 
 const PostsPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +38,24 @@ const PostsPage: React.FC = () => {
   const filteredPosts = useMemo(() => {
     return filterByLength(filteredByUserPosts, filter);
   }, [filteredByUserPosts, filter]);
+
+
+  const renderPostItem = (post: Post): React.ReactElement => (
+    <>
+      <Link
+        to={`/posts/${post.id}`}
+      >
+        <PostCard
+          key={post.id}
+          id={post.id}
+          title={post.title}
+          content={post.body}
+        />
+      </Link>
+      <CommentList postId={post.id} />
+    </>
+  )
+
 
   if (isLoading)
     return (
@@ -57,19 +78,12 @@ const PostsPage: React.FC = () => {
         <h1 className={styles.title}>Все посты</h1>
         <PostLengthFilter currentFilter={filter} onFilterChange={setFilter} />
         <div className={styles.postList}>
-          {filteredPosts.map((post) => (
-            <>
-              <Link key={post.id} to={`/posts/${post.id}`}>
-                <PostCard
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  content={post.body}
-                />
-              </Link>
-              <CommentList postId={post.id} />
-            </>
-          ))}
+          {<ItemList<Post>
+            items={filteredPosts}
+            renderItem={renderPostItem}
+            keyExtractor={(post) => post.id}
+            emptyMessage="Посты не найдены"
+          />}
         </div>
       </div>
     </>

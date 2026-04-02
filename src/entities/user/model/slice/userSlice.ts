@@ -3,16 +3,14 @@ import {
   createEntityAdapter,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import type { User } from "../../api/usersApi";
+import type { User, UserState } from "../types"
 import type { RootState } from "../../../../app/providers/store";
 
 export const usersAdapter = createEntityAdapter<User>({
   sortComparer: (a: User, b: User) => a.name.localeCompare(b.name),
 });
 
-interface UserState {
-  selectedUserId: number | null;
-}
+
 
 const initialState = usersAdapter.getInitialState<UserState>({
   selectedUserId: null,

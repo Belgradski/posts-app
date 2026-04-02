@@ -1,5 +1,5 @@
 import { createSlice, createEntityAdapter,  } from '@reduxjs/toolkit';
-import { type Post } from '../../api/postApi';
+import { type Post, type PostState } from '../types'; 
 import type { RootState } from '../../../../app/providers/store';
 
 // Нормализация постов
@@ -7,10 +7,7 @@ export const postsAdapter = createEntityAdapter<Post>({
   sortComparer: (a, b) => a.id - b.id,
 });
 
-interface PostState {
-  selectedPostId: number | null;
-  filterByUserId: number | null;
-}
+
 
 const initialState = postsAdapter.getInitialState<PostState>({
   selectedPostId: null,

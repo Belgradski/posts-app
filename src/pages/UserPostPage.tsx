@@ -7,6 +7,8 @@ import { useGetPostsByUserIdQuery } from "../entities/post/api/postApi";
 import { useAppSelector } from "../app/providers/store";
 import {  selectUserById } from "../entities/user/model/slice/userSlice";
 import CommentList from "../widgets/CommentList/ui/CommentList";
+import type { Post } from "../shared/types";
+import { ItemList } from "../shared/ui/ItemList/ItemList";
 
 const UserPostPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,14 +17,27 @@ const UserPostPage: React.FC = () => {
 
     const user = useAppSelector(state => selectUserById(state, userId));
 
-    
+    const renderPostItem = (post: Post) => (
+      <>
+      <Link key={post.id} to={`/posts/${post.id}`}>
+        <PostCard
+          key={post.id}
+          id={post.id}
+          title={post.title}
+          content={post.body}
+        />
+      </Link>
+      <CommentList postId={post.id}/>
+      </>
+    )
+
   if (isLoading)
     return (
       <div className={styles.container}>
         <div className={styles.loader}>Загрузка</div>
       </div>
     );
-  if (error)
+  if (error || !posts)
     return (
       <div className={styles.container}>
         <div className={styles.error}>Что то пошло не так</div>
@@ -35,19 +50,11 @@ const UserPostPage: React.FC = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Посты {user?.name}</h1>
         <div className={styles.postList}>
-          {posts?.map((post) => (
-            <>
-            <Link key={post.id} to={`/posts/${post.id}`}>
-              <PostCard
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                content={post.body}
-              />
-            </Link>
-            <CommentList postId={post.id}/>
-            </>
-          ))}
+          {<ItemList<Post> 
+          items={posts}
+          renderItem={renderPostItem}
+          keyExtractor={(post) => post.id}
+          />}
         </div>
       </div>
     </>

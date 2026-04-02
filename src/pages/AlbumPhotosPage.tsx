@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "./pages.module.css";
 import { useGetPhotosByAlbumIdQuery } from "../entities/album/api/albumsApi";
+import type { Photo } from "../entities/album/model/types";
+import { ItemList } from "../shared/ui/ItemList/ItemList";
 
 const AlbumPhotosPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,11 +17,22 @@ const AlbumPhotosPage: React.FC = () => {
   });
   const navigate = useNavigate();
 
-  
-
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  const renderPhotoItem = (photo: Photo) => (
+    <div key={photo.id} className={styles.photoCard}>
+              <img
+                src={photo.thumbnailUrl}
+                alt={photo.title}
+                className={styles.title}
+                loading="lazy"
+              />
+              <p className={styles.title}>{photo.title}</p>
+            </div>
+  )
+
 
   if (isLoading)
     return (
@@ -27,7 +40,7 @@ const AlbumPhotosPage: React.FC = () => {
         <div className={styles.loader}>Загрузка...</div>
       </div>
     );
-  if (error)
+  if (error || !photos)
     return (
       <div className={styles.container}>
         <div className={styles.error}>Что то пошло не так</div>
@@ -42,16 +55,12 @@ const AlbumPhotosPage: React.FC = () => {
         </button>
         <h1 className={styles.title}>Фотографии альбома #{id}</h1>
         <div className={styles.photoGrid}>
-          {photos?.map((photo) => (
-            <div key={photo.id} className={styles.photoCard}>
-              <img
-                src={photo.thumbnailUrl}
-                alt={photo.title}
-                className={styles.title}
-              />
-              <p className={styles.title}>{photo.title}</p>
-            </div>
-          ))}
+          {<ItemList<Photo>
+          items={photos}
+          renderItem={renderPhotoItem}
+          keyExtractor={(photo) => photo.id}
+          emptyMessage="Фотографии не найдены"
+          />}
         </div>
       </div>
     </>

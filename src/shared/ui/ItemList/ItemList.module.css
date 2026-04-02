@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .item {
+    width: 100%;
+  }
+  
+  .empty {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-style: italic;
+  }

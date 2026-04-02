@@ -48,7 +48,7 @@ const PostList = () => {
       </select>
       <PostLengthFilter currentFilter={filter} onFilterChange={handleFilterChange} />
       {filteredPosts.map(post => (
-        <PostCard key={post.id} title={post.title} content={post.body} />
+        <PostCard key={post.id} title={post.title} content={post.body}  />
 
       ))}
     </div>
