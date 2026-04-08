@@ -10,17 +10,8 @@ React-приложение для работы с API JSONPlaceholder.
 - Тёмная/светлая тема
 - Кэширование данных через RTK Query
 
+## 📦 Установка и запуск
 
-📦 Установка и запуск:
-
+```bash
 npm install
 npm run dev
-
-## Структура проекта(FSD):
-src/
-├── app/          # Инициализация, store, роутинг
-├── pages/        # Страницы
-├── widgets/      # UI-блоки (UserTabs, CommentList)
-├── features/     # Фичи (фильтрация, тема)
-├── entities/     # Сущности (post, user, album, comment, todo)
-└── shared/       # Переиспользуемые компоненты, утилиты
