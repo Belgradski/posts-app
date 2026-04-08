@@ -1,49 +1,56 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { usePosts } from "../features/PostList/model/hooks/usePosts";
 import CommentList from "../widgets/CommentList/ui/CommentList";
-import MainLayout from "../shared/layouts/MainLayout";
-import { type Post } from "../shared/types";
-import styles from "./pages.module.css"
+import styles from "./pages.module.css";
+import { useGetPostByIdQuery } from "../entities/post/api/postApi";
 
 const PostDetailPage: React.FC = () => {
-    const { id } = useParams<{id: string}>();
-    const{fetchPostById, isLoading} = usePosts();
-    const [post, setPost] = useState<Post | null>(null);
-    const [error, setError] = useState<string | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const postId = id ? parseInt(id) : 0;
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useGetPostByIdQuery(postId, {
+    skip: !id,
+  });
 
-    useEffect(() => {
-        const loadPost = async () => {
-            if (!id) return;
-            const postId = parseInt(id);
-            const data = await fetchPostById(postId);
-            if (data) {
-                setPost(data)
-            } else {
-                setError('Пост не найден');
-            }
-        }
-        loadPost();
-        
-    }, [id]);
-
-    if (isLoading) return <div className={styles.loader}>Загрузка...</div>
-    if (error) return <div className={styles.error}>Что то пошло не так:{error}</div>
-    if (!post) return <div className={styles.error}>Пост не найден</div>
-
+  if (isLoading)
     return (
-        <MainLayout>
-        <div className={styles.container}>
-            <Link to="/posts" className={styles.backLink}>Назад к постам</Link>
-            <div className={styles.postDetail}>
-                <h1 className={styles.title}>{post.title}</h1>
-                <p className={styles.author}>Автор: Пользователь:{post.userId}</p>
-                <p className={styles.content}>{post.body}</p>
-                <CommentList postId={post.id} />
-            </div>
+      <div className={styles.container}>
+        <div className={styles.loader}>Загрузка...</div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className={styles.container}>
+        <div className={styles.error}>Что то пошло не так</div>
+      </div>
+    );
+
+  if (!post)
+    return (
+      <div className={styles.container}>
+        <div className={styles.error}>Пост не найден</div>
+      </div>
+    );
+
+  return (
+    <>
+      <div className={styles.container}>
+        <Link to="/posts" className={styles.backLink}>
+          Назад к постам
+        </Link>
+        <div className={styles.postDetail}>
+          <h1 className={styles.title}>{post.title}</h1>
+          <p className={styles.author}>Автор: Пользователь:{post.userId}</p>
+          <p className={styles.content}>{post.body}</p>
+          <CommentList postId={post.id} />
         </div>
-        </MainLayout>
-    )
-}
+      </div>
+    </>
+  );
+};
 
 export default PostDetailPage;

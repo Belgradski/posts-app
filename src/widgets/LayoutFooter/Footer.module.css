@@ -3,6 +3,8 @@
   padding: 15px;
   text-align: center;
   transition: background-color 0.3s ease;
+  position: sticky;
+  
 }
 .text {
   font-size: 14px;

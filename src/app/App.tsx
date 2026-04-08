@@ -1,16 +1,17 @@
 
 import { ThemeProvider } from '../shared/layouts/lib/theme/ThemeContext'
-import './App.css'
+import { Provider } from 'react-redux';
+import { store } from './providers/store';
 import { AppRouter } from './providers/router';
 
 function App() {
-
   return (
-    <ThemeProvider>
-      <AppRouter/>
-    </ThemeProvider>
-  )
-    
+    <Provider store={store}>
+      <ThemeProvider>
+        <AppRouter />
+      </ThemeProvider>
+    </Provider>
+  );
 }
 
-export default App
+export default App;

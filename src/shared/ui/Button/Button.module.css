@@ -21,6 +21,10 @@
     color: white;
 }
 
+.primary:hover {
+    background-color: #2b72a2;
+}
+
 .secondary {
     background-color: #95a5a6;
     color: white

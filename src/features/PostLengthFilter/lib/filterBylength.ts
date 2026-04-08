@@ -1,6 +1,13 @@
 import { type PostApi } from "../../../shared/types"; 
 
-export type FilterType = 'all' | 'short' | 'medium' | 'long';
+export enum PostLengthFilterType {
+    ALL = 'all',
+    SHORT = 'short',
+    MEDIUM = 'medium',
+    LONG = 'long'
+}
+
+export type FilterType = PostLengthFilterType;
 
 export const filterByLength = (posts: PostApi[], filterType: FilterType) => {
     switch (filterType) {
@@ -18,14 +25,16 @@ export const filterByLength = (posts: PostApi[], filterType: FilterType) => {
 
 export const getFilterLabel = (filterType: FilterType): string => {
     switch (filterType) {
-        case ('short'):
+        case PostLengthFilterType.SHORT:
             return 'Короткие(<30 символов)';
-        case ('medium'):
+        case PostLengthFilterType.MEDIUM:
             return 'Средние(30-60 символов)';
-        case ('long'):
+        case PostLengthFilterType.LONG:
             return 'Длинные(>60 символов)';
-        case ('all'):
+        case PostLengthFilterType.ALL:
             default:
             return 'Все посты';
     }
 }
+
+export const ALL_FILTERS = Object.values(PostLengthFilterType);
