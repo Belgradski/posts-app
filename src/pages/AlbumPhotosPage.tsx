@@ -26,20 +26,35 @@ const AlbumPhotosPage: React.FC = () => {
               <img
                 src={photo.thumbnailUrl}
                 alt={photo.title}
-                className={styles.title}
+                className={styles.photoImage}
                 loading="lazy"
+                
               />
               <p className={styles.title}>{photo.title}</p>
             </div>
   )
 
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className={styles.container}>
-        <div className={styles.loader}>Загрузка...</div>
+      <div className={styles.containerPhotoPage}>
+        <button onClick={handleGoBack} className={styles.backLink}>
+          ← назад к альбомам
+        </button>
+        <div className={styles.skeletonHeader}>
+          <div className={styles.skeletonTitle}></div>
+        </div>
+        <div className={styles.photoGrid}>
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className={styles.skeletonCard}>
+              <div className={styles.skeletonImage}></div>
+              <div className={styles.skeletonText}></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
+  }
   if (error || !photos)
     return (
       <div className={styles.container}>
@@ -49,7 +64,7 @@ const AlbumPhotosPage: React.FC = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.containerPhotoPage}>
         <button onClick={handleGoBack} className={styles.backLink}>
           назад к альбомам
         </button>
