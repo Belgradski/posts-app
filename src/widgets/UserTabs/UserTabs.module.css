@@ -90,6 +90,32 @@
     color: #2c3e50;
 }
 
+.skeletonTitle {
+    margin: 0 auto 15px auto;
+    width: 150px;
+    height: 24px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: loading 1.5s infinite;
+}
+
+.skeletonUserLink {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: loading 1.5s infinite;
+    height: 40px;
+    margin: 5px 0;
+}
+
+@keyframes loading {
+    0% {background-position: 200% 0;}
+    100% {background-position: -200% 0;}
+}
+
+
+
 :global(body[data-theme="dark"]) .tabsContainer {
     background-color: #2d2d2d;
 }
@@ -116,6 +142,12 @@
 
 :global(body[data-theme="dark"]) .subLink.active {
     
+}
+
+:global(body[data-theme="dark"]) .skeletonTitle,
+:global(body[data-theme="dark"]) .skeletonUserLink {
+    background: linear-gradient(90deg, #3d3d3d 25%, #4d4d4d 50%, #3d3d3d 75%);
+    background-size: 200% 100%;
 }
 /* :global(body[data-theme="dark"]) .subLink {
     background-color: #34495e;

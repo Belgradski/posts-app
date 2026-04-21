@@ -8,6 +8,17 @@ import { selectUserById } from "../entities/user/model/slice/userSlice";
 import type { Album } from "../entities/album/model/types";
 import { ItemList } from "../shared/ui/ItemList/ItemList";
 
+
+const AlbumSkeleton: React.FC = () => {
+  return (
+    <div className={styles.albumCardSkeleton}>
+      <div className={styles.skeletonText}></div>
+      <div className={styles.skeletonTextShort}></div>
+    </div>
+  )
+}
+
+
 const UserAlbumsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const userId = id ? parseInt(id) : 0;
@@ -25,11 +36,19 @@ const UserAlbumsPage: React.FC = () => {
   );
 
   if (isLoading)
-    return (
-      <div className={styles.container}>
-        <div className={styles.loader}>Загрузка...</div>
-      </div>
-    );
+    return  <>
+  <UserTabs userId={userId} />
+  <div className={styles.container}>
+    <div className={styles.skeletonTitle}></div>
+    <div className={styles.albumGrid}>
+      {[...Array(10).map((_, index) => (
+        <AlbumSkeleton key={index} />
+      ))]
+        
+      }
+    </div>
+  </div>
+</>;
 
   if (error || !albums)
     return (
@@ -40,7 +59,7 @@ const UserAlbumsPage: React.FC = () => {
 
   return (
     <>
-      <UserTabs userId={id ? parseInt(id) : undefined} />
+      <UserTabs userId={userId} />
       <div className={styles.container}>
         <h1 className={styles.title}>Альбомы пользователя: {user?.name}</h1>
         <div className={styles.albumGrid}>

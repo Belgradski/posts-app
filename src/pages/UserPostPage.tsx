@@ -68,6 +68,7 @@ const UserPostPage: React.FC = () => {
             id={post.id}
             title={post.title}
             content={post.body}
+            
           />
         </Link>
         <CommentList postId={post.id} />
@@ -77,12 +78,35 @@ const UserPostPage: React.FC = () => {
     [displayedPosts.length, lastElementRef]
   );
 
-  if (isLoading)
+  if (isLoading) {
     return (
+      <>
+      <UserTabs userId={userId || undefined} />
       <div className={styles.container}>
-        <div className={styles.loader}>Загрузка</div>
-      </div>
+        <div className={styles.skeletonTitle} />
+        <div className={styles.postList}>
+          {
+            [...Array(5)].map((_, index) => (
+              <div key={index}>
+                <Link to='#'style={{pointerEvents: 'none'}}>
+                <PostCard 
+                id={index}
+                title=""
+                content=""
+                isLoading={true}
+                />
+                </Link>
+                <CommentList postId={index} isLoading={true} />
+              </div>
+            ))
+          }
+        </div>
+        </div>
+      </>
     );
+    }
+
+
   if (error || !allPosts)
     return (
       <div className={styles.container}>
@@ -92,7 +116,7 @@ const UserPostPage: React.FC = () => {
 
   return (
     <>
-      <UserTabs userId={id ? parseInt(id) : undefined} />
+      <UserTabs userId={userId || undefined} />
       <div className={styles.container}>
         <h1 className={styles.title}>Посты {user?.name}</h1>
         <div className={styles.postList}>
