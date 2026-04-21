@@ -8,6 +8,15 @@ import { useAppSelector } from "../app/providers/store";
 import type { Todo } from "../entities/todo/model/types";
 import { ItemList } from "../shared/ui/ItemList/ItemList";
 
+const TodosSkeleton: React.FC = () => {
+  return (
+    <div className={styles.todoItemSkeleton}>
+      <div className={styles.skeletonCheckbox}></div>
+      <div className={styles.skeletonTodoText}></div>
+    </div>
+  )
+}
+
 const UserTodosPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const userId = id ? parseInt(id) : 0;
@@ -29,9 +38,17 @@ const renderTodoItem = (todo: Todo) => (
 
   if (isLoading)
     return (
+      <>
+      <UserTabs userId={userId} />
       <div className={styles.container}>
-        <div className={styles.loader}>Загрузка...</div>
+        <div className={styles.skeletonTitle}></div>
+        <div className={styles.todoList}>
+          {[...Array(20)].map((_, index) => (
+            <TodosSkeleton key={index} />
+          ))}
+        </div>
       </div>
+    </>
     );
   if (error || !todos)
     return (

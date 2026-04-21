@@ -28,7 +28,16 @@ const UserTabs: React.FC<UserTabsProps> = ({userId }) => {
         }
     }, [userId, dispatch])
 
-    if (isLoading) return <div className={styles.loader}>Загрузка пользователей...</div>;
+    if (isLoading) return <div className={styles.tabsContainer}>
+        <div className={styles.skeletonTitle} />
+        <div className={styles.userList}>
+            {[...Array(7)].map((_, index) => (
+                <div key={index} className={styles.userGroup}>
+                    <div className={styles.skeletonUserLink} />
+                </div>
+            ))}
+        </div>
+    </div>;
 
     return (
         <div className={styles.tabsContainer}>

@@ -18,8 +18,22 @@ const PostDetailPage: React.FC = () => {
   if (isLoading)
     return (
       <div className={styles.container}>
-        <div className={styles.loader}>Загрузка...</div>
+      <Link to="/posts" className={styles.backLink}>
+        Назад к постам
+      </Link>
+      <div className={styles.postDetail}>
+        <div className={styles.skeletonTitle}></div>
+        <div className={styles.skeletonAuthor}></div>
+        <div className={styles.skeletonContent}>
+            <div className={styles.skeletonLine}></div>
+            <div className={styles.skeletonLine}></div>
+            <div className={styles.skeletonLineShort}></div>
+            <div className={styles.skeletonLine}></div>
+            <div className={styles.skeletonLineMedium}></div>
+          </div>
+        <CommentList postId={postId} />
       </div>
+    </div>
     );
 
   if (error)
